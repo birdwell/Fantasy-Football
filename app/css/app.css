@@ -353,3 +353,16 @@ h1.rankingHeader {
     text-align: center;
     padding-bottom: 15px;
 }
+fieldset.profileHeader, fieldset.changeEmail, fieldset.changePass {
+    background-color: white;
+    border-radius: 4px;
+}
+
+fieldset legend {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+button {
+    border-radius: 4px;
+}
