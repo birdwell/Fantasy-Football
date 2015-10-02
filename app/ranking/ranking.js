@@ -12,8 +12,6 @@
     var players = $firebaseArray(query);
 
     $scope.players = players;
-    console.log(players);
-
   }]);
 
   app.config(['$routeProvider', function ($routeProvider) {

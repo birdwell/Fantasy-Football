@@ -1,12 +1,17 @@
 (function(angular) {
   "use strict";
 
-  var app = angular.module('myApp.draftEntry', ['firebase.auth', 'firebase', 'firebase.utils', 'ngRoute']);
+  var app = angular.module('myApp.draftEntry', ['firebase.auth', 'firebase', 'firebase.utils', 'ngRoute', 'angucomplete-alt']);
 
   app.controller('DraftEntryCtrl', ['$scope', 'fbutil', 'user', '$firebaseObject', 'FBURL', "$firebaseArray", function ($scope, fbutil, user, $firebaseObject, FBURL, $firebaseArray) {
     $scope.user = user;
     $scope.FBURL = FBURL;
+    var playersRef = new Firebase(FBURL).child("players");
+    var query = playersRef.orderByChild("adp").limitToFirst(400);
 
+    var players = $firebaseArray(query);
+
+    $scope.players = players;
   }]);
 
   app.config(['$routeProvider', function ($routeProvider) {
