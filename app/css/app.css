@@ -329,7 +329,6 @@ body#madden {
 }
 #players {
   background-color: #fff;
-  border: 1px #ddd solid;
   border-radius: 3px;
 }
 #players > .player:first-child {
@@ -372,4 +371,25 @@ span.searchPlayers angucomplete-alt input {
     font-size: 20px;
     font-family: 'Muli', sans-serif;
     font-weight: 100;
+    float: left;
+}
+
+a.button.draftBtn {
+    border-radius: 4px;
+}
+a.button.draftBtn {
+    border-radius: 4px;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.pick {
+    text-align: center;
+    padding-bottom: 25px;
+    font-size: 36px;
+    font-family: 'Muli', sans-serif;
+    font-weight: 100;
+}
+.drafted {
+    padding-top: 30px;
 }

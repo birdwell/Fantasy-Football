@@ -8,10 +8,46 @@
     $scope.FBURL = FBURL;
     var playersRef = new Firebase(FBURL).child("players");
     var query = playersRef.orderByChild("adp").limitToFirst(400);
-
     var players = $firebaseArray(query);
-
     $scope.players = players;
+
+    $scope.selectedPlayer;
+
+    // Draft Begins
+    var pick = 1;
+    $scope.draftedPlayers = [];
+    $scope.pick = pick;
+
+    $scope.draft = function(){
+        var selectedPlayer = $scope.selectedPlayer;
+        $scope.draftedPlayers.push(selectedPlayer.originalObject);
+        // Get Reference to Player
+        var firePlayer = new Firebase(FBURL + '/players/' + selectedPlayer.originalObject.$id);
+        var player  = $firebaseObject(firePlayer);
+        player.$loaded().then(function() {
+
+            // Update Info
+            player.drafted.push(pick);
+            player.numDrafts += 1;
+
+            var sum = player.drafted.reduce(function(a, b) {
+              return a + b;
+            });
+            player.adp = Math.round(sum/player.numDrafts);
+
+            player.$save().then(function(ref) {
+              ref.key() === player.$id; // true
+            }, function(error) {
+              console.log("Error:", error);
+            });
+
+            $scope.pick += 1;
+            pick++;
+
+            console.log(pick);
+          });
+          $scope.$broadcast('angucomplete-alt:clearInput');
+    }
   }]);
 
   app.config(['$routeProvider', function ($routeProvider) {

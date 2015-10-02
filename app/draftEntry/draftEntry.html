@@ -1,5 +1,11 @@
+<section class="row pick">
+    Pick: {{pick}}
+</section>
+
 <section class="row">
-    <span class="searchPlayers">
+    <a ng-click='draft()' class="button draftBtn columns large-1">Draft</a>
+    <span class="searchPlayers columns large-11">
+
         <angucomplete-alt id="ex1"
                   placeholder="Search Players"
                   selected-object="selectedPlayer"
@@ -10,4 +16,27 @@
                   input-class="searchPlayerInput"
                   input-class="form-control form-control-small"/>
     </span>
+</section>
+<section class="drafted row">
+  <div id="players" class="columns large-12">
+    <div ng-repeat="player in draftedPlayers" class="player row">
+      <span>
+        <div class="column large-2 adpContain">
+            <strong class="adp"># {{player.adp}}</strong>
+        </div>
+        <div class="column large-3 playerImgContain">
+            <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
+        </div>
+        <div class="column large-3 playerName">
+            {{ player.fullName }}
+        </div>
+        <div class="column large-1 playerPosition">
+            {{ player.pos }}
+        </div>
+        <div class="column large-1 playerOvr">
+            {{ player.ovr }}
+        </div>
+      </span>
+    </div>
+  </div>
 </section>
