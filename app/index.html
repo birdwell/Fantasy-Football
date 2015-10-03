@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="css/app.css" />
-  <link rel="stylesheet" href="../resources/foundation/css/foundation.css">
+  <link rel="stylesheet" href="resources/foundation/css/foundation.css">
   <link rel="stylesheet" href="css/mobile.css"/>
   <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
@@ -25,7 +25,8 @@
         </div>
         <li><a href="#/home">Home</a></li>
         <li><a href="#/ranking">Ranking</a></li>
-        <li><a href="#/draftEntry">Enter Draft Data</a></li>
+        <li><a href="#/draftEntry">Draft Entry</a></li>
+        <li><a href="#/draftHub">Draft Hub</a></li>
         <li ng-hide="loggedIn"><a href="#/login">Login</a></li>
         <li ng-show="loggedIn"><a href="#/account">Account</a></li>
       </ul>
@@ -54,11 +55,11 @@
   <script src="components/reverse/reverse-filter.js"></script>
   <script src="components/security/security.js"></script>
 
-  <script src="../resources/foundation/js/vendor/jquery.js"></script>
-  <script src="../resources/foundation/js/foundation.min.js"></script>
-  <script src="../resources/foundation/js/foundation/foundation.topbar.js"></script>
+  <script src="resources/foundation/js/vendor/jquery.js"></script>
+  <script src="resources/foundation/js/foundation.min.js"></script>
+  <script src="resources/foundation/js/foundation/foundation.topbar.js"></script>
 
-  <script src="../node_modules/angucomplete-alt/dist/angucomplete-alt.min.js"></script>
+  <script src="resources/angucomplete-alt.min.js"></script>
 
   <script src="home/home.js"></script>
   <script src="account/account.js"></script>
@@ -66,6 +67,7 @@
   <script src="login/login.js"></script>
   <script src="ranking/ranking.js"></script>
   <script src="draftEntry/draftEntry.js"></script>
+  <script src="draftHub/draftHub.js"></script>
 
 
   <script type="text/javascript">

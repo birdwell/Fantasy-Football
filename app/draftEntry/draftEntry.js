@@ -26,17 +26,19 @@
 
     $scope.draft = function(){
         var selectedPlayer = $scope.selectedPlayer;
+
         $scope.draftedPlayers.push(selectedPlayer.originalObject);
         sessionStorage.draftedPlayers = JSON.stringify($scope.draftedPlayers);
-
+        if(sessionStorage.getItem('pick') == null){
+            sessionStorage.setItem('pick',$scope.pick);
+        }
         // Get Reference to Player
         var firePlayer = new Firebase(FBURL + '/players/' + selectedPlayer.originalObject.$id);
         var player  = $firebaseObject(firePlayer);
 
         player.$loaded().then(function() {
-            var pick = parseInt(sessionStorage.getItem('pick'));
             // Update Info
-            player.drafted.push(pick);
+            player.drafted.push(parseInt($scope.pick));
             player.numDrafts += 1;
 
             var sum = player.drafted.reduce(function(a, b) {
@@ -55,6 +57,43 @@
             $scope.pick = sessionStorage.pick;
           });
           $scope.$broadcast('angucomplete-alt:clearInput');
+    }
+    $scope.undo = function(){
+        var index;
+        if($scope.pick == 1){
+            $scope.pick = 1;
+            sessionStorage.clear();
+            index = 0;
+        }else{
+            $scope.pick -= 1;
+            sessionStorage.pick = $scope.pick;
+            index = $scope.pick - 1;
+        }
+
+        var firePlayer = new Firebase(FBURL + '/players/' + $scope.draftedPlayers[index].$id);
+        var player  = $firebaseObject(firePlayer);
+
+        $scope.draftedPlayers.pop();
+        sessionStorage.draftedPlayers = JSON.stringify($scope.draftedPlayers);
+
+        player.$loaded().then(function() {
+            // Update Info
+            player.drafted.pop();
+            player.numDrafts -= 1;
+
+            var sum = player.drafted.reduce(function(a, b) {
+              return a + b;
+            });
+
+            player.adp = Math.round(sum/player.numDrafts);
+
+            player.$save().then(function(ref) {
+              ref.key() === player.$id; // true
+            }, function(error) {
+              console.log("Error:", error);
+            });
+
+          });
     }
     $scope.reset = function(){
         sessionStorage.clear();

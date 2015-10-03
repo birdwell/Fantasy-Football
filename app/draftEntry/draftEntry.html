@@ -1,8 +1,9 @@
 <section class="row pick">
-    <span class="columns large-11">
+    <span class="columns large-9">
         Pick: {{pick}}
     </span>
-    <span class='reset columns large-1'>
+    <span class='reset columns large-3'>
+        <a ng-click='undo()' class="button draftBtn">Undo Pick</a>
         <a ng-click='reset()' class="button draftBtn">Reset</a>
     </span>
 </section>
@@ -11,7 +12,7 @@
     <span class="columns large-1">
         <a ng-click='draft()' class="button draftBtn ">Draft</a>
     </span>
-    <span class="searchPlayers columns large-11">
+    <span class="searchPlayers columns large-11"/>
 
         <angucomplete-alt id="ex1"
                   placeholder="Search Players"

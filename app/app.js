@@ -9,7 +9,8 @@ angular.module('myApp', [
     'myApp.chat',
     'myApp.login',
     'myApp.ranking',
-    'myApp.draftEntry'
+    'myApp.draftEntry',
+    'myApp.draftHub'
   ])
 
   .config(['$routeProvider', function ($routeProvider) {
