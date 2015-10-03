@@ -14,18 +14,27 @@
     $scope.selectedPlayer;
 
     // Draft Begins
-    var pick = 1;
-    $scope.draftedPlayers = [];
-    $scope.pick = pick;
+    if(!sessionStorage.getItem('pick')){
+        var draftedPlayers = [];
+        sessionStorage.setItem('pick', '1');
+        sessionStorage.setItem('draftedPlayers', JSON.stringify(draftedPlayers));
+    }
+
+
+    $scope.draftedPlayers = JSON.parse(sessionStorage.getItem('draftedPlayers'));
+    $scope.pick = parseInt(sessionStorage.getItem('pick'));
 
     $scope.draft = function(){
         var selectedPlayer = $scope.selectedPlayer;
         $scope.draftedPlayers.push(selectedPlayer.originalObject);
+        sessionStorage.draftedPlayers = JSON.stringify($scope.draftedPlayers);
+
         // Get Reference to Player
         var firePlayer = new Firebase(FBURL + '/players/' + selectedPlayer.originalObject.$id);
         var player  = $firebaseObject(firePlayer);
-        player.$loaded().then(function() {
 
+        player.$loaded().then(function() {
+            var pick = parseInt(sessionStorage.getItem('pick'));
             // Update Info
             player.drafted.push(pick);
             player.numDrafts += 1;
@@ -33,6 +42,7 @@
             var sum = player.drafted.reduce(function(a, b) {
               return a + b;
             });
+
             player.adp = Math.round(sum/player.numDrafts);
 
             player.$save().then(function(ref) {
@@ -41,12 +51,15 @@
               console.log("Error:", error);
             });
 
-            $scope.pick += 1;
-            pick++;
-
-            console.log(pick);
+            sessionStorage.pick = parseInt(sessionStorage.pick) + 1;
+            $scope.pick = sessionStorage.pick;
           });
           $scope.$broadcast('angucomplete-alt:clearInput');
+    }
+    $scope.reset = function(){
+        sessionStorage.clear();
+        $scope.pick = 1;
+        $scope.draftedPlayers = [];
     }
   }]);
 
