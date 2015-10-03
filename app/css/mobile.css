@@ -1,0 +1,6 @@
+@media only screen and (max-width: 40em) {
+    .playerOvr {
+        float: left;
+        padding-left: 30px;
+    }
+}
