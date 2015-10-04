@@ -80,7 +80,6 @@
 
     $scope.nextRound = function(){
         $scope.round += 1;
-        debugger;
         if($scope.round % 2 == 0){
             var nextPosition = (($scope.round - 1) * 32) + (32 - parseInt($scope.draftPosition)) + 1;
         }else{
