@@ -26,7 +26,7 @@
         </div>
         <li><a href="#/home">Home</a></li>
         <li><a href="#/ranking">Ranking</a></li>
-        <li><a href="#/draftEntry">Draft Entry</a></li>
+        <li ng-show="loggedIn"><a href="#/draftEntry">Draft Entry</a></li>
         <li><a href="#/draftHub">Draft Hub</a></li>
         <li ng-hide="loggedIn"><a href="#/login">Login</a></li>
         <li ng-show="loggedIn"><a href="#/account">Account</a></li>
