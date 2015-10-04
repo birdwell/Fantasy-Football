@@ -1,39 +1,78 @@
 <section class="nextRound row">
-    <a class="button" ng-show="(begun || round > 1) && round != 15" ng-click="nextRound()">Next Round</a>
+  <a class="button" ng-show="(begun || round > 1) && round != 15" ng-click="nextRound()">Next Round</a>
+  <a class="button" ng-show="begun" ng-click="refresh()">Restart</a>
 </section>
 <section class="draftHub row">
-    <div id="players" class="columns large-6">
-      <h4 ng-show="suggestedPlayers.length == 0 && round != 1">No Data Yet for this Round</h4>
-      <h4 class="suggestedHeader" ng-show="suggestedPlayers.length > 0">Suggested Players at Pick {{currentPick}} in Round {{round}}</h4>
-      <div ng-repeat="player in suggestedPlayers" class="player row">
-        <span>
-          <div class="column large-1 adpContain">
-              <strong class="adp">{{player.adp}}</strong>
-          </div>
-          <div class="column large-4 playerImgContain">
-              <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
-          </div>
-          <div class="column large-4 playerName">
-              {{ player.fullName }}
-          </div>
-          <div class="column large-3 playerPosition">
-              {{ player.pos }} - {{ player.ovr }}
-          </div>
+  <div id="players" class="suggestedPlayer columns large-6">
+    <h4 ng-show="suggestedPlayers.length == 0 && round != 1">No Data Yet for this Round</h4>
+    <h4 class="suggestedHeader" ng-show="suggestedPlayers.length > 0">Suggested Players at Pick {{currentPick}} in Round {{round}}</h4>
+    <div ng-repeat="player in suggestedPlayers" class="player row">
+      <span>
+        <div class="column large-1 adpContain">
+          <strong class="adp">{{player.adp}}</strong>
+        </div>
+        <div class="column large-4 playerImgContain">
+          <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
+        </div>
+        <div class="column large-4 playerName">
+          {{ player.fullName }}
+        </div>
+        <div class="column large-3 playerPosition">
+          {{ player.pos }} - {{ player.ovr }}
+        </div>
+      </span>
+    </div>
+  </div>
+  <div id="players" ng-show="begun" class="watchList columns large-6">
+    <h4 class="suggestedHeader">Watch List</h4>
+    <div class="row">
+        <span class="columns large-1">
+            <a ng-click='addToWL()' class="button draftBtn">Add</a>
         </span>
+        <span class="searchPlayers columns large-10"/>
+
+            <angucomplete-alt id="ex1"
+                      placeholder="Search Players"
+                      selected-object="selectedPlayer"
+                      local-data="players"
+                      search-fields="name"
+                      title-field="profile"
+                      minlength="1"
+                      input-class="searchPlayerInput"
+                      input-class="form-control form-control-small"/>
+        </span>
+    </div>
+
+    <div ng-repeat="player in watchList" class="player row">
+      <span>
+        <div class="column large-1 adpContain">
+          <strong class="adp">{{player.adp}}</strong>
+        </div>
+        <div class="column large-3 playerImgContain">
+          <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
+        </div>
+        <div class="column large-4 playerName">
+          {{ player.fullName }}
+        </div>
+        <div class="column large-3 playerPosition">
+          {{ player.pos }} - {{ player.ovr }}
+        </div>
+        <div class="column large-1">
+            <a ng-click="removeFromWL($index)" class="removePlayer">X</a>
+        </div>
+      </span>
+    </div>
+  </div>
+  <script type="text/ng-template" id="myModalContent.html">
+    <form ng-submit="submit()">
+      <div class="modal-body">
+        <label>What draft pick do you have?</label>
+        <input type="text" ng-model="draftPosition" />
       </div>
-    </div>
-    <div id="wishList" class="columns large-6">
-    </div>
-    <script type="text/ng-template" id="myModalContent.html">
-        <form ng-submit="submit()">
-          <div class="modal-body">
-            <label>What draft pick do you have?</label>
-            <input type="text" ng-model="draftPosition" />
-          </div>
-          <div class="draftHub modal-footer">
-              <button class="button small" ng-click="cancel()">Cancel</button>
-              <input type="submit" class="button small" value="Submit" />
-          </div>
-        </form>
-    </script>
+      <div class="draftHub modal-footer">
+        <button class="button small" ng-click="cancel()">Cancel</button>
+        <input type="submit" class="button small" value="Submit" />
+      </div>
+    </form>
+  </script>
 </section>

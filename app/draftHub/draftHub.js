@@ -3,11 +3,12 @@
 
   var app = angular.module('myApp.draftHub', ['firebase.auth', 'firebase', 'firebase.utils', 'ngRoute', 'angucomplete-alt', 'angularModalService', 'ui.bootstrap']);
 
-  app.controller('DraftHubCtrl', ['$scope', 'fbutil', 'user', '$firebaseObject', 'FBURL', "$firebaseArray", '$modal', '$log',  function ($scope, fbutil, user, $firebaseObject, FBURL, $firebaseArray, $modal, $log) {
+  app.controller('DraftHubCtrl', ['$scope', 'fbutil', 'user', '$firebaseObject', 'FBURL', "$firebaseArray", '$modal', '$log',  '$route', function ($scope, fbutil, user, $firebaseObject, FBURL, $firebaseArray, $modal, $log, $route) {
     $scope.user = user;
     $scope.FBURL = FBURL;
     $scope.draftPosition;
     $scope.suggestedPlayers = [];
+    $scope.watchList = [];
     $scope.round = 1;
     $scope.currentPick;
     $scope.begun = false;
@@ -15,6 +16,7 @@
     var playersRef = new Firebase(FBURL).child("players");
     var query = playersRef.orderByChild("adp").limitToFirst(450);
     var players = $firebaseArray(query);
+    $scope.players = players;
 
     var draft = function($scope, draftPosition){
         var suggestedPlayers = [];
@@ -36,6 +38,14 @@
         $scope.suggestedPlayers = suggestedPlayers;
     }
 
+    $scope.addToWL = function(){
+        var selectedPlayer = $scope.selectedPlayer;
+        $scope.watchList.push(selectedPlayer.originalObject);
+        $scope.$broadcast('angucomplete-alt:clearInput');
+    }
+    $scope.removeFromWL = function(i){
+        $scope.watchList.splice(i, 1);
+    }
     $scope.modal = $modal.open({
       templateUrl: 'myModalContent.html',
       backdrop: true,
@@ -87,6 +97,9 @@
         }
         draft($scope,nextPosition);
         $scope.currentPick = nextPosition;
+    }
+    $scope.refresh = function(){
+        $route.reload();
     }
   }]);
 
