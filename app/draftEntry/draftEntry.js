@@ -100,6 +100,12 @@
         $scope.pick = 1;
         $scope.draftedPlayers = [];
     }
+
+    $scope.skip = function(pick) {
+        $scope.pick = pick;
+        sessionStorage.pick = $scope.pick;
+        $scope.skipToPick = null;
+      };
   }]);
 
   app.config(['$routeProvider', function ($routeProvider) {

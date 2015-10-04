@@ -35,26 +35,7 @@ body#madden {
   margin-top: 0px;
   left: 22px;
 }
-#global-header .container>h1:before, #global-header .container>h1:after {
-  -webkit-transform: skew(-25deg, 0);
-  -ms-transform: skewX(-25deg) skewY(0);
-  transform: skew(-25deg, 0);
-  content: '';
-  display: block;
-  height: 50px;
-  position: absolute;
-  top: 0;
-}
-#global-header .container>h1:before {
-  background: #c00;
-  width: 110px;
-}
-#global-header .container>h1:after {
-  background: #b00000;
-  left: -10px;
-  width: 130px;
-  z-index: -1;
-}
+
 #global-header .container>h1 a {
   -webkit-transition-duration: .25s;
   transition-duration: .25s;
@@ -575,4 +556,21 @@ a.removePlayer {
     color: #CC0000;
     position: relative;
     bottom: -16px;
+}
+.skip .skipInput {
+    width: 96px;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0;
+    display: inline;
+    height: 52px;
+    font-size: 14px;
+}
+
+form.skip {
+    display: inline;
+}
+
+.skip .skipButton {
+    border-radius: 4px;
 }

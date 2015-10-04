@@ -1,10 +1,13 @@
 <section class="row pick">
-    <span class="columns large-9">
+    <span class="columns large-7">
         Pick: {{pick}}
     </span>
-    <span class='reset columns large-3'>
+    <span class='reset columns large-5'>
         <a ng-click='undo()' class="button draftBtn">Undo Pick</a>
-        <a ng-click='reset()' class="button draftBtn">Reset</a>
+        <form novalidate class="skip">
+            <input class="skipInput" type="text" placeholder="Skip to Pick" ng-model="skipToPick" />
+            <input class="button skipButton" type="button" ng-click="skip(skipToPick)"   value="Skip" />
+        </form>
     </span>
 </section>
 
