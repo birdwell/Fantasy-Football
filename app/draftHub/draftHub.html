@@ -1,3 +1,39 @@
+<section class="nextRound row">
+    <a class="button" ng-show="(begun || round > 1) && round != 15" ng-click="nextRound()">Next Round</a>
+</section>
 <section class="draftHub row">
-    How are you?
+    <div id="players" class="columns large-6">
+      <h4 ng-show="suggestedPlayers.length == 0 && round != 1">No Data Yet for this Round</h4>
+      <h4 class="suggestedHeader" ng-show="suggestedPlayers.length > 0">Suggested Players at Pick {{currentPick}} in Round {{round}}</h4>
+      <div ng-repeat="player in suggestedPlayers" class="player row">
+        <span>
+          <div class="column large-1 adpContain">
+              <strong class="adp">{{player.adp}}</strong>
+          </div>
+          <div class="column large-4 playerImgContain">
+              <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
+          </div>
+          <div class="column large-4 playerName">
+              {{ player.fullName }}
+          </div>
+          <div class="column large-3 playerPosition">
+              {{ player.pos }} - {{ player.ovr }}
+          </div>
+        </span>
+      </div>
+    </div>
+    <div id="wishList" class="columns large-6">
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <form ng-submit="submit()">
+          <div class="modal-body">
+            <label>What draft pick do you have?</label>
+            <input type="text" ng-model="draftPosition" />
+          </div>
+          <div class="draftHub modal-footer">
+              <button class="button small" ng-click="cancel()">Cancel</button>
+              <input type="submit" class="button small" value="Submit" />
+          </div>
+        </form>
+    </script>
 </section>
