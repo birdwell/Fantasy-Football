@@ -3,4 +3,15 @@
         float: left;
         padding-left: 30px;
     }
+    .playerPosition {
+       font-size: 14px;
+    }
+
+    .playerName {
+        font-size: 15px;
+    }
+
+    strong.adp {
+        font-size: 18px;
+    }
 }
