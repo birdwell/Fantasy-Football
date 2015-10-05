@@ -98,6 +98,16 @@
         draft($scope,nextPosition);
         $scope.currentPick = nextPosition;
     }
+    $scope.prevRound = function(){
+        $scope.round -= 1;
+        if($scope.round % 2 == 0){
+            var prevPosition = (($scope.round - 1) * 32) + (32 - parseInt($scope.draftPosition)) + 1;
+        }else{
+            var prevPosition = (($scope.round - 1) * 32) + (parseInt($scope.draftPosition));
+        }
+        draft($scope,prevPosition);
+        $scope.currentPick = prevPosition;
+    }
     $scope.refresh = function(){
         $route.reload();
     }
