@@ -12,6 +12,27 @@
     var players = $firebaseArray(query);
 
     $scope.players = players;
+    $scope.rankingFilter = function(pos, round){
+        return function( player ) {
+            debugger;
+            if(!(pos || round)) return true;
+            if(pos && round){
+                if(pos == "All" && Math.ceil(player.adp/32) == round) return true;
+                if(pos == player.pos && Math.ceil(player.adp/32) == round) return true;
+                else return false;
+            }
+            if(pos){
+                if(pos == "All") return true;
+                if(pos == player.pos) return true;
+                else return false;
+            }
+            if(round){
+                if(Math.ceil(player.adp/32) == round) return true;
+                else return false;
+            }
+            return true;
+        };
+    }
   }]);
 
   app.config(['$routeProvider', function ($routeProvider) {

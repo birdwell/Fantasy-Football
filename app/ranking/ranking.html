@@ -3,8 +3,32 @@
     <h1 class="rankingHeader">Madden Fantasy ADP</h1>
 </section>
 <section class="row">
+    <form class="form-inline">
+        <select class="posSelect" ng-model="pos" placeholder="Select By Position">
+            <option value="" disabled selected>Sort by Pos</option>
+            <option value="All">All</option>
+            <option value="QB">QB</option>
+            <option value="CB">CB</option>
+            <option value="WR">WR</option>
+            <option value="LOLB">LOLB</option>
+            <option value="ROLB">ROLB</option>
+            <option value="LE">LE</option>
+            <option value="RE">RE</option>
+            <option value="DT">DT</option>
+            <option value="HB">HB</option>
+            <option value="TE">TE</option>
+            <option value="LT">LT</option>
+            <option value="LG">LG</option>
+            <option value="C">C</option>
+            <option value="RG">RG</option>
+            <option value="RT">RT</option>
+            <option value="FS">FS</option>
+            <option value="SS">SS</option>
+        </select>
+        <input class="roundFilter" ng-model="round" placeholder="Sort by Round"/>
+    </form>
   <div id="players" class="columns large-12">
-    <div ng-repeat="player in players" class="player row">
+    <div ng-repeat="player in players | filter: rankingFilter(pos,round)" class="player row">
       <span>
         <div class="column large-2 adpContain">
             <strong class="adp"># {{player.adp}}</strong>
