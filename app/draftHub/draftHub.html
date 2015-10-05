@@ -1,5 +1,5 @@
 <section class="nextRound row">
-  <a class="button" ng-show="(round >= 2) && round != 15" ng-click="prevRound()">Prev Round</a>
+  <a class="button" ng-show="(round >= 2)" ng-click="prevRound()">Prev Round</a>
   <a class="button" ng-show="(begun || round > 1) && round != 15" ng-click="nextRound()">Next Round</a>
   <a class="button" ng-show="begun" ng-click="refresh()">Restart</a>
 </section>
