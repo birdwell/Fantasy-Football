@@ -26,6 +26,7 @@
             <option value="SS">SS</option>
         </select>
         <input class="roundFilter" ng-model="round" placeholder="Sort by Round"/>
+        <input type="checkbox" ng-model="hideImages">Hide Images<br>
     </form>
   <div id="players" class="columns large-12">
     <div ng-repeat="player in players | filter: rankingFilter(pos,round)" class="player row">
@@ -33,7 +34,7 @@
         <div class="column large-2 adpContain">
             <strong class="adp"># {{player.adp}}</strong>
         </div>
-        <div class="column large-3 playerImgContain">
+        <div ng-show="!hideImages" class="column large-3 playerImgContain">
             <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
         </div>
         <div class="column large-3 playerName">

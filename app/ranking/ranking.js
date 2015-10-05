@@ -14,7 +14,6 @@
     $scope.players = players;
     $scope.rankingFilter = function(pos, round){
         return function( player ) {
-            debugger;
             if(!(pos || round)) return true;
             if(pos && round){
                 if(pos == "All" && Math.ceil(player.adp/32) == round) return true;
