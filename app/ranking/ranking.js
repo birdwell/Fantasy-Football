@@ -12,17 +12,48 @@
     var players = $firebaseArray(query);
 
     $scope.players = players;
+    // $scope.updateGenPos = function(){
+    //     debugger;
+    //     for (var i = 0; i < players.length; i++) {
+    //         var firePlayer = new Firebase(FBURL + '/players/' + players[i].$id);
+    //         if(['LG','RG','LT','RT','C'].indexOf(players[i].pos) > -1){
+    //             firePlayer.update({
+    //               'genPos': 'OL'
+    //             });
+    //         }else if (['MLB','LOLB','ROLB'].indexOf(players[i].pos) > -1){
+    //             firePlayer.update({
+    //               'genPos': 'LB'
+    //             });
+    //         }else if (['FS','SS'].indexOf(players[i].pos) > -1){
+    //             firePlayer.update({
+    //               'genPos': 'S'
+    //             });
+    //         }else if(['LE','RE'].indexOf(players[i].pos) > -1){
+    //             firePlayer.update({
+    //               'genPos': 'DE'
+    //             });
+    //         }else {
+    //             firePlayer.update({
+    //               'genPos': players[i].pos
+    //             });
+    //         }
+    //     }
+    // }
+
     $scope.rankingFilter = function(pos, round){
         return function( player ) {
+            // No Filter Return True
             if(!(pos || round)) return true;
+            // Both Filters
             if(pos && round){
+                // All Pos with specific round
                 if(pos == "All" && Math.ceil(player.adp/32) == round) return true;
-                if(pos == player.pos && Math.ceil(player.adp/32) == round) return true;
+                if(pos == player.genPos && Math.ceil(player.adp/32) == round) return true;
                 else return false;
             }
             if(pos){
                 if(pos == "All") return true;
-                if(pos == player.pos) return true;
+                if(pos == player.genPos) return true;
                 else return false;
             }
             if(round){
