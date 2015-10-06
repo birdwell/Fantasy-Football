@@ -12,29 +12,14 @@
     var players = $firebaseArray(query);
 
     $scope.players = players;
-    // $scope.updateGenPos = function(){
+    // $scope.updateRound = function(){
     //     debugger;
     //     for (var i = 0; i < players.length; i++) {
     //         var firePlayer = new Firebase(FBURL + '/players/' + players[i].$id);
-    //         if(['LG','RG','LT','RT','C'].indexOf(players[i].pos) > -1){
+    //         if(players[i].adp != null){
+    //             debugger;
     //             firePlayer.update({
-    //               'genPos': 'OL'
-    //             });
-    //         }else if (['MLB','LOLB','ROLB'].indexOf(players[i].pos) > -1){
-    //             firePlayer.update({
-    //               'genPos': 'LB'
-    //             });
-    //         }else if (['FS','SS'].indexOf(players[i].pos) > -1){
-    //             firePlayer.update({
-    //               'genPos': 'S'
-    //             });
-    //         }else if(['LE','RE'].indexOf(players[i].pos) > -1){
-    //             firePlayer.update({
-    //               'genPos': 'DE'
-    //             });
-    //         }else {
-    //             firePlayer.update({
-    //               'genPos': players[i].pos
+    //                 'round': Math.ceil(players[i].adp / 32)
     //             });
     //         }
     //     }

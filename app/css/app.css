@@ -315,7 +315,7 @@ body#madden {
   width: 150px;
 }
 .adp {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: 300;
 }
 .adpContain {
@@ -587,4 +587,15 @@ input.roundFilter {
     border: 1px solid #D6D6D6;
     text-align: center;
     font-size: 14px;
+}
+.playerHeader .posOvr {
+    padding-left: 0px;
+}
+
+.playerHeader.row {
+    padding: 20px;
+}
+
+.playerHeader .rdAdp {
+    padding-left: 0px;
 }

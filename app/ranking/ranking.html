@@ -23,10 +23,23 @@
         <input type="checkbox" id="hideImages" ng-model="hideImages">Hide Images<br>
     </form>
   <div id="players" class="columns large-12">
+    <div class="playerHeader">
+        <div class="playerHeader row">
+            <div class="columns large-5 small-4 rdAdp">
+                Round - ADP
+            </div>
+            <div class="columns large-3 small-4 name">
+                Name
+            </div>
+            <div class="columns large-2 small-4 posOvr">
+                Position - Overall
+            </div>
+        </div>
+    </div>
     <div ng-repeat="player in players | filter: rankingFilter(pos,round)" class="player row">
       <span>
         <div class="column large-2 small-3 adpContain">
-            <strong class="adp"># {{player.adp}}</strong>
+            <strong class="adp">{{player.round}} - {{player.adp}}</strong>
         </div>
         <div ng-show="!hideImages" class="column large-3 playerImgContain">
             <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{player.espnID}}.png" />
