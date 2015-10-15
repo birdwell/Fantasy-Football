@@ -599,3 +599,11 @@ input.roundFilter {
 .playerHeader .rdAdp {
     padding-left: 0px;
 }
+
+a.button.draftEntryBtn {
+    border-radius: 3px;
+}
+
+.modal-body.draftEntry {
+    text-align: center;
+}
