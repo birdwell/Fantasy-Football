@@ -149,15 +149,16 @@
           }
         });
 
+        $scope.$on('$locationChangeStart', function(event) {
+          $scope.modal.close();
+        });
+
         $scope.modal.result.then(function (draftId) {
             $scope.draftId = draftId
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
     }
-
-
-
 
     $scope.skip = function(pick) {
         $scope.pick = pick;
