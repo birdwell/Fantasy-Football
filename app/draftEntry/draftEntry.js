@@ -3,14 +3,15 @@
 
   var app = angular.module('myApp.draftEntry', ['firebase.auth', 'firebase', 'firebase.utils', 'ngRoute', 'angucomplete-alt']);
 
-  app.controller('DraftEntryCtrl', ['$scope', 'fbutil', 'user', '$firebaseObject', 'FBURL', "$firebaseArray", function ($scope, fbutil, user, $firebaseObject, FBURL, $firebaseArray) {
+  app.controller('DraftEntryCtrl', ['$scope', 'fbutil', 'user', '$firebaseObject', 'FBURL', "$firebaseArray", '$modal', function ($scope, fbutil, user, $firebaseObject, FBURL, $firebaseArray, $modal) {
     $scope.user = user;
     $scope.FBURL = FBURL;
-    var playersRef = new Firebase(FBURL).child("players");
-    var query = playersRef.orderByChild("adp").limitToFirst(400);
-    var players = $firebaseArray(query);
-    $scope.players = players;
 
+    var playersRef = new Firebase(FBURL).child("players");
+    var query = playersRef.orderByChild("adp").limitToFirst(800);
+    var players = $firebaseArray(query);
+
+    $scope.players = players;
     $scope.selectedPlayer;
 
     // Draft Begins
@@ -18,6 +19,9 @@
         var draftedPlayers = [];
         sessionStorage.setItem('pick', '1');
         sessionStorage.setItem('draftedPlayers', JSON.stringify(draftedPlayers));
+    }
+    if(sessionStorage.getItem('draftId')){
+        $scope.draftId = sessionStorage.getItem('draftId');
     }
 
 
@@ -38,14 +42,20 @@
 
         player.$loaded().then(function() {
             // Update Info
-            player.drafted.push(parseInt($scope.pick));
+            if(!player.drafted){
+                player.drafted = {};
+            }
+
+            player.drafted[$scope.draftId] = parseInt($scope.pick);
             player.numDrafts += 1;
 
-            var sum = player.drafted.reduce(function(a, b) {
-              return a + b;
-            });
+            var sum = 0;
+            for(var pick in player.drafted){
+                sum += player.drafted[pick];
+            }
 
             player.adp = Math.round(sum/player.numDrafts);
+            player.round = Math.ceil(player.adp/32);
 
             player.$save().then(function(ref) {
               ref.key() === player.$id; // true
@@ -100,6 +110,54 @@
         $scope.pick = 1;
         $scope.draftedPlayers = [];
     }
+
+
+    /* Draft Init */
+    if(!sessionStorage.getItem('draftId')){
+        $scope.modal = $modal.open({
+          templateUrl: 'myModalContent.html',
+          backdrop: true,
+          windowClass: 'modal',
+          size: 'sm',
+          controller: function ($scope, $modalInstance, $log) {
+              function guid() {
+                function s4() {
+                  return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+                }
+                return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                  s4() + '-' + s4() + s4() + s4();
+              }
+              $scope.startDraft = function (draftName) {
+                  var draftId = guid();
+                  sessionStorage.setItem('draftId',draftId);
+                  $scope.draftId = sessionStorage.getItem('draftId');
+                  var userDrafts = new Firebase(FBURL + '/users/' + $scope.$$prevSibling.user.uid + '/drafts');
+
+                  userDrafts.child(draftId).set(draftName);
+                  $modalInstance.close($scope.draftId);
+              }
+              $scope.cancel = function () {
+                  $modalInstance.dismiss('cancel');
+              };
+          },
+          resolve: {
+              draftId: function () {
+                  return $scope.draftId;
+              },
+          }
+        });
+
+        $scope.modal.result.then(function (draftId) {
+            $scope.draftId = draftId
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    }
+
+
+
 
     $scope.skip = function(pick) {
         $scope.pick = pick;

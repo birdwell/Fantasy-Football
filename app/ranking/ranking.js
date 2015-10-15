@@ -7,23 +7,19 @@
     $scope.user = user;
     $scope.FBURL = FBURL;
     var playersRef = new Firebase(FBURL).child("players");
-    var query = playersRef.orderByChild("adp").limitToFirst(400);
+    var query = playersRef.orderByChild("adp").limitToFirst(490);
 
-    var players = $firebaseArray(query);
-
-    $scope.players = players;
-    // $scope.updateRound = function(){
-    //     debugger;
-    //     for (var i = 0; i < players.length; i++) {
-    //         var firePlayer = new Firebase(FBURL + '/players/' + players[i].$id);
-    //         if(players[i].adp != null){
-    //             debugger;
-    //             firePlayer.update({
-    //                 'round': Math.ceil(players[i].adp / 32)
-    //             });
-    //         }
-    //     }
-    // }
+    $scope.players = $firebaseArray(query);
+    $scope.updateRound = function(){
+        for (var i = 0; i < players.length; i++) {
+            var firePlayer = new Firebase(FBURL + '/players/' + players[i].$id);
+            if(players[i].adp != null){
+                firePlayer.update({
+                    'round': Math.ceil(players[i].adp / 32)
+                });
+            }
+        }
+    }
 
     $scope.rankingFilter = function(pos, round){
         return function( player ) {

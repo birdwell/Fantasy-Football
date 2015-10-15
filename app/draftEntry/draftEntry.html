@@ -1,4 +1,7 @@
 <section class="row pick">
+    {{draftId}}
+</section>
+<section class="row pick">
     <span class="columns large-7">
         Pick: {{pick}}
     </span>
@@ -9,6 +12,12 @@
             <input class="button skipButton" type="button" ng-click="skip(skipToPick)"   value="Skip" />
         </form>
     </span>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-body draftEntry">
+            <input class="draftNameInput" type="text" placeholder="Draft Name" ng-model="draftName">
+            <a class="button draftEntryBtn" ng-click="startDraft(draftName)">Create a Draft Entry</a>
+        </div>
+    </script>
 </section>
 
 <section class="row">
