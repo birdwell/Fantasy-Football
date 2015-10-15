@@ -11,7 +11,7 @@ angular.module('myApp', [
     'myApp.ranking',
     'myApp.draftEntry',
     'myApp.draftHub',
-    'myApp.admin',
+    // 'myApp.admin',
     'myApp.profile'
   ])
 

@@ -227,3 +227,5 @@ test_out/e2e.xml
 node_modules/
 app/bower_components/
 *.pem
+
+app/resources/data.json
