@@ -76,3 +76,25 @@
     </form>
   </script>
 </section>
+<hr ng-show="begun"/>
+<section ng-show="begun" class="row">
+  <div class="row">
+    <span class="columns large-1">
+      <a ng-click='draftPlayer()' class="button draftBtn">Add</a>
+    </span>
+    <span class="searchPlayers columns large-10" />
+    <angucomplete-alt placeholder="Draft Player" selected-object="draftedPlayer" local-data="players" search-fields="name" title-field="profile" minlength="1" input-class="draftPlayerInput" input-class="form-control form-control-small" />
+    </span>
+  </div>
+  <div class="column medium-4">
+    <div class="panel text-center">
+      <div class="avatar">
+        <img class="playerImg" src="http://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/{{qb.espnID}}.png" />
+      </div>
+      <h3 class="ellipsis">{{qb.firstName}} {{qb.lastName}}</h3>
+      <p class="ellipsis-2">QB</p>
+      <hr>
+      <a href="#" data-dropdown="drop{{u.user.username}}" aria-controls="drop{{u.user.username}}" class="ellipsis">{{ qb.ovr }}</a>
+    </div>
+  </div>
+</section>

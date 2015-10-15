@@ -10,7 +10,9 @@ angular.module('myApp', [
     'myApp.login',
     'myApp.ranking',
     'myApp.draftEntry',
-    'myApp.draftHub'
+    'myApp.draftHub',
+    'myApp.admin',
+    'myApp.profile'
   ])
 
   .config(['$routeProvider', function ($routeProvider) {
