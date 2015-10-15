@@ -27,21 +27,13 @@
   <div id="players" ng-show="begun" class="watchList columns large-6">
     <h4 class="suggestedHeader">Watch List</h4>
     <div class="row">
-        <span class="columns large-1">
-            <a ng-click='addToWL()' class="button draftBtn">Add</a>
-        </span>
-        <span class="searchPlayers columns large-10"/>
+      <span class="columns large-1">
+        <a ng-click='addToWL()' class="button draftBtn">Add</a>
+      </span>
+      <span class="searchPlayers columns large-10" />
 
-            <angucomplete-alt id="ex1"
-                      placeholder="Search Players"
-                      selected-object="selectedPlayer"
-                      local-data="players"
-                      search-fields="name"
-                      title-field="profile"
-                      minlength="1"
-                      input-class="searchPlayerInput"
-                      input-class="form-control form-control-small"/>
-        </span>
+      <angucomplete-alt id="ex1" placeholder="Search Players" selected-object="selectedPlayer" local-data="players" search-fields="name" title-field="profile" minlength="1" input-class="searchPlayerInput" input-class="form-control form-control-small" />
+      </span>
     </div>
 
     <div ng-repeat="player in watchList" class="player row">
@@ -59,24 +51,25 @@
           {{ player.pos }} - {{ player.ovr }}
         </div>
         <div class="column large-1">
-            <a ng-click="removeFromWL($index)" class="removePlayer">X</a>
+          <a ng-click="removeFromWL($index)" class="removePlayer">X</a>
         </div>
       </span>
     </div>
   </div>
   <script type="text/ng-template" id="myModalContent.html">
-    <form ng-submit="submit()">
+    <form name="draftPickForm" ng-submit="submit()"  novalidate>
       <div class="modal-body">
         <label>What draft pick do you have?</label>
-        <input type="text" ng-model="draftPosition" />
+        <input class="draftPickInput" type="number" min="1" max="32" name="draftPosition" ng-model="draftPosition" />
+        <small ng-show="draftPickForm.draftPosition.$error.max || draftPickForm.draftPosition.$error.min" class="draftPickInputError error">Enter Pick Between 1 and 32</small>
       </div>
       <div class="draftHub modal-footer">
-        <input type="submit" class="button small" value="Draft" />
+        <input type="submit" class="button small"  ng-disabled="draftPickForm.$invalid" value="Draft" />
       </div>
     </form>
   </script>
 </section>
-<hr ng-show="begun"/>
+<hr ng-show="false"/>
 <section ng-show="begun" class="row">
   <div class="row">
     <span class="columns large-1">
