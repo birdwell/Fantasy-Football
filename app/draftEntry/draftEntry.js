@@ -117,6 +117,8 @@
         $scope.modal = $modal.open({
           templateUrl: 'myModalContent.html',
           backdrop: true,
+          backdrop : 'static',
+          keyboard :false,
           windowClass: 'modal',
           size: 'sm',
           controller: function ($scope, $modalInstance, $log) {
