@@ -21,7 +21,8 @@
 
     var playersRef = new Firebase(FBURL).child("players");
     var query = playersRef.orderByChild("adp").limitToFirst(500);
-    $scope.players = $firebaseArray(query);
+    var players = $firebaseArray(query);
+    $scope.players = players;
 
     // --------------- Watch List ----------------------
     $scope.addToWL = function () {
@@ -129,17 +130,17 @@
         draftPosition = draftPos || parseInt($scope.draftPosition),
         lookUntil;
 
-      if (draftPosition + 20 < $scope.players.length) {
+      if (draftPosition + 20 < players.length) {
         lookUntil = draftPosition + 20;
       } else {
-        lookUntil = $scope.players.length - 1;
+        lookUntil = players.length - 1;
       }
 
-      for (var i = 0; i < $scope.players.length; i++) {
-        if ((draftPosition - 2 <= $scope.players[i].adp) && ($scope.players[i].adp <= draftPosition + 3)) {
-          suggestedPlayers.push($scope.players[i]);
+      for (var i = 0; i < players.length; i++) {
+        if ((draftPosition - 2 <= players[i].adp) && (players[i].adp <= draftPosition + 3)) {
+          suggestedPlayers.push(players[i]);
         }
-        if ($scope.players[i].adp > draftPosition + 3) {
+        if (players[i].adp > draftPosition + 3) {
           break;
         }
       }
