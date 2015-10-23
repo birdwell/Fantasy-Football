@@ -23,7 +23,7 @@
     var query = playersRef.orderByChild("adp").limitToFirst(500);
     $scope.players = $firebaseArray(query);
 
-    // --------------- Watch List ---------------
+    // --------------- Watch List ----------------------
     $scope.addToWL = function () {
       $scope.watchList.push($scope.selectedPlayer.originalObject);
       $scope.$broadcast('angucomplete-alt:clearInput');
@@ -34,6 +34,21 @@
     };
     
     // --------------- End of Watch List ---------------
+    
+    // --------------- Depth Chart ---------------------
+    
+    $scope.draftPlayer = function () {
+      var draftedPlayer = $scope.draftedPlayer.originalObject;
+
+      switch (draftedPlayer.pos) {
+        case 'QB':
+          $scope.qb = draftedPlayer;
+          break;
+      }
+    };
+    
+    // -------------- End of Depth Chart ---------------
+    
     
     $scope.nextRound = function () {
       $scope.currentPick = getDraftPick($scope.round += 1);
@@ -50,6 +65,7 @@
     };
     
     // --------------- Modal  ---------------
+    
     $scope.modal = $modal.open({
       templateUrl: 'myModalContent.html',
       backdrop: 'static',
@@ -92,16 +108,6 @@
     });
     
     // --------------- End of Modal  ---------------
-
-    $scope.draftPlayer = function () {
-      var draftedPlayer = $scope.draftedPlayer.originalObject;
-
-      switch (draftedPlayer.pos) {
-        case 'QB':
-          $scope.qb = draftedPlayer;
-          break;
-      }
-    };
     
     // Helpful Functions
     
@@ -117,18 +123,18 @@
         return ((round - 1) * 32) + (parseInt($scope.draftPosition));
       }
     }
-    
+
     function draft($scope, draftPos) {
       var suggestedPlayers = [],
-          draftPosition = draftPos || parseInt($scope.draftPosition),
-          lookUntil;
+        draftPosition = draftPos || parseInt($scope.draftPosition),
+        lookUntil;
 
       if (draftPosition + 20 < $scope.players.length) {
         lookUntil = draftPosition + 20;
       } else {
         lookUntil = $scope.players.length - 1;
       }
-      
+
       for (var i = 0; i < $scope.players.length; i++) {
         if ((draftPosition - 2 <= $scope.players[i].adp) && ($scope.players[i].adp <= draftPosition + 3)) {
           suggestedPlayers.push($scope.players[i]);
