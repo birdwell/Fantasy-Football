@@ -1,3 +1,5 @@
+/* global Firebase */
+/* global angular */
 (function (angular) {
   "use strict";
 
